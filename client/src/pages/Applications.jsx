@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Navbar from '../components/Navbar'
 
 const Applications = () => {
+
+  const [isEdit, setIsEdit] = useState(false)
+  
   return (
-    <div>Applications</div>
+    <>
+      <Navbar />
+      <div>
+        <h2>Your resume</h2>
+        <div>
+
+        </div>
+      </div>
+    </>
   )
 }
 
