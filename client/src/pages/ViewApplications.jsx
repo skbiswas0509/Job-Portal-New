@@ -24,19 +24,20 @@ const ViewApplications = () => {
                   <img className='w-10 h-10 rounded-full mr-3 max-sm:hidden' src={applicant.imgSrc} alt="" />
                   <span>{applicant.name}</span>
                 </td>
-                <td>{applicant.jobTitle}</td>
-                <td>{applicant.location}</td>
-                <td>
-                  <a href="" target='_blank'>
+                <td className='py-2 px-4 border-b max-sm:hidden'>{applicant.jobTitle}</td>
+                <td className='py-2 px-4 border-b max-sm:hidden'>{applicant.location}</td>
+                <td className='py-2 px-4 border-b'>
+                  <a href="" target='_blank'
+                  className='bg-blu-50 text-blue-400 px-3 py-1 rounded inline-flex gap-2 items-center'>
                     Resume <img src={assets.resume_download_icon} alt="" />
                   </a>
                 </td>
-                <td>
-                  <div>
-                    <button>...</button>
-                    <div>
-                      <button>Accept</button>
-                      <button>Reject</button>
+                <td className='py-2 px-4 border-b relative'>
+                  <div className='relative inline-block text-left group'>
+                    <button className='text-gray-500 action-button'>...</button>
+                    <div className='x-10 hidden absolute right-0 md:left-0 top-0 mt-2 w-32 bg-white border border-gray-200 rounded shadow group-hover:block'>
+                      <button className='block w-full text-left px-4 py-2 text-blue-500 hover:bg-gray-100'>Accept</button>
+                      <button className='block w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100'>Reject</button>
                     </div>
                   </div>
                 </td>
