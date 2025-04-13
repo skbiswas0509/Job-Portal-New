@@ -144,7 +144,12 @@ export const changeJobApplicationsStatus = async(req, res) => {
 
         const jobs = await Job.find({companyId})
         //adding no of applicant info in data
-        res.json({success:true, jobsData: jobs})
+        const jobData = await Promise.all(jobs.map(async (job) => {
+            const applicants = await JobApplication.find({jobId: job._id})
+            return {...job.toObject(),applicants:applicants.length}
+        }))
+
+        res.json({success:true, jobsData})
 
     } catch (error) {
         res.json({success: false, message: error.message})
