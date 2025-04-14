@@ -128,16 +128,6 @@ export const postJob = async(req, res) => {
 
 //get company job applicants
 export const getCompanyJobApplicants = async(req, res) => {
-
-}
-
-
-//get company posted jobs
-export const getCompanyPostedJobs = async(req, res) => {}
-
-
-//change job application status
-export const changeJobApplicationsStatus = async(req, res) => {
     try {
         
         const companyId = req.company._id
@@ -149,10 +139,45 @@ export const changeJobApplicationsStatus = async(req, res) => {
             return {...job.toObject(),applicants:applicants.length}
         }))
 
-        res.json({success:true, jobsData})
+        res.json({success:true, jobData})
 
     } catch (error) {
         res.json({success: false, message: error.message})
+    }
+}
+
+
+//get company posted jobs
+export const getCompanyPostedJobs = async(req, res) => {
+    try {
+        
+        const companyId = req.company._id
+
+        //find  job applications for the user and populate related data
+        const applications = await JobApplication.find({companyId})
+        .populate('userId','name image resume')
+        .populate('jobId','title location category level salary')
+        .exec()
+
+        return res.json({ success: true, applications})
+    } catch (error) {
+        res.json({ success: false, message: error.message})
+    }
+}
+
+
+//change job application status
+export const changeJobApplicationsStatus = async(req, res) => {
+    
+    try {
+        const {id ,status} = req.body
+
+    // find job application data and status
+    await JobApplication.findOneAndUpdate({_id: id},{status})
+
+    res.json({ success: true, message: "Status changed"})
+    } catch (error) {
+        res.json({ success: false, error: error.message})
     }
 }
 
